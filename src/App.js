@@ -1,6 +1,5 @@
 import './App.scss';
 import CurrentWeather from './components/current-wether/CurrentWeather';
-import Forecast from './components/forecast/Forecast';
 import Search from './components/search/Search';
 import { WEATHER_API_URL, WEATHER_API_KEY } from './api'
 import { useEffect, useState } from 'react';
@@ -14,7 +13,7 @@ const App = () => {
   const [forecast, setForecast] = useState(null)
 
 
-  const [cityImages, setCityImages] = useState(null);
+  // const [cityImages, setCityImages] = useState(null);
 
   const getData = async () => {
     const res = await Axios.get('https://geolocation-db.com/json/');
@@ -45,7 +44,7 @@ const App = () => {
 
             setCurrentWeather({ ...weatherResponse })
             setForecast({ ...forecastResponse })
-            setCityImages(allImages)
+            setCurrentImage(allImages)
           })
           .catch(err => console.log(err))
 
@@ -71,7 +70,7 @@ const App = () => {
 
         setCurrentWeather(weatherResponse)
         setForecast(forecastResponse)
-        setCityImages(allImages)
+        setCurrentImage(allImages)
       })
       .catch(err => console.log(err))
   }
@@ -83,10 +82,11 @@ const App = () => {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    setCurrentImage(cityImages)
+
 
     const id = setInterval(() => {
       setIndex(prev => {
+        if(!prev) return
         if (prev === currentImage.length - 1) {
           prev = 0
         }
@@ -96,7 +96,7 @@ const App = () => {
 
     return () => clearInterval(id);
 
-  }, [cityImages])
+  }, [currentImage])
 
   useEffect(() => {
     getData()

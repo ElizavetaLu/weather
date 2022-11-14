@@ -10,7 +10,6 @@ import "./forecast.scss"
 import { convertToCelsius, convertUnixTime } from "../../convert"
 
 const Forecast = ({ data, location, hourlyData }) => {
-    console.log(hourlyData)
   
 
     return (
