@@ -86,7 +86,6 @@ const App = () => {
 
     const id = setInterval(() => {
       setIndex(prev => {
-        if(!prev) return
         if (prev === currentImage.length - 1) {
           prev = 0
         }
