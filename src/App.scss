@@ -1,0 +1,14 @@
+.main {
+  width: 100%;
+  min-height: 100vh;
+  background-size: cover;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  .main-content {
+    display: flex;
+    justify-content: space-between;
+  }
+}
