@@ -1,5 +1,5 @@
 export const convertUnixTime = (unixTimestamp) => {
-    let date = new Date(unixTimestamp * 1000);
+    const date = new Date(unixTimestamp * 1000);
     return date.toLocaleTimeString("it-IT").slice(0, 5)
 }
 

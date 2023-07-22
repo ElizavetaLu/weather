@@ -3,7 +3,7 @@ import Forecast from "./Forecast"
 
 const WEEK_DAYS = [1, 2, 3, 4, 5, 6, 0]
 
-const ContainerForecast = ({ data, location }) => {
+const ContainerForecast = ({ data }) => {
 
     const hourlyWeatherData = []
     const date = new Date()
@@ -285,7 +285,7 @@ const ContainerForecast = ({ data, location }) => {
                     weekDaysSortedData[6] = elem
                     break;
 
-                case forecastDays[0]:
+                case forecastDays[7]:
                     weekDaysSortedData[7] = elem
                     break;
 
@@ -296,7 +296,7 @@ const ContainerForecast = ({ data, location }) => {
     }
 
 
-    return <Forecast location={location} data={weekDaysSortedData} hourlyData={hourlyWeatherData}/>
+    return <Forecast data={weekDaysSortedData} hourlyData={hourlyWeatherData}/>
 }
 
 export default ContainerForecast

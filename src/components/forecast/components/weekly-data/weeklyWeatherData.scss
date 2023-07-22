@@ -1,0 +1,26 @@
+.weekly-block {
+    display: flex;
+    align-items: center;
+    border: 1.5px solid rgba(178, 178, 178, 0.389);
+    border-radius: 10px;
+    margin-bottom: 10px;
+
+    .item {
+        display: flex;
+        align-items: center;
+        width: 100%;
+
+        .icon {
+            width: 60px;
+        }
+
+        .description {
+            margin: 0px 10px;
+        }
+    }
+
+    .vector {
+        margin-right: 20px;
+        width: 10px;
+    }
+}

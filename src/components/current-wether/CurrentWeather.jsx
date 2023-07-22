@@ -1,9 +1,9 @@
 import React from "react";
-import "./currentWeather.scss"
-import { convertToCelsius, convertUnixTime } from "../../convert"
+import { convertToCelsius, convertUnixTime } from "../../convert";
+import "./currentWeather.scss";
 
 const CurrentWeather = ({ data }) => {
-    // console.log(data)
+
     return (
         <div className="container">
             <div className="content">
@@ -52,10 +52,6 @@ const CurrentWeather = ({ data }) => {
 
                 <div className="description">{data.weather[0].description}</div>
                 <div className="row">Feels like: {convertToCelsius(data.main.feels_like)}°</div>
-
-                {/*   <div className="weather-icon">
-                    <img src={`http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`} alt="" />
-                </div> */}
             </div>
         </div>
     )
