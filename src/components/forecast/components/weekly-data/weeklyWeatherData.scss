@@ -4,6 +4,7 @@
     border: 1.5px solid rgba(178, 178, 178, 0.389);
     border-radius: 10px;
     margin-bottom: 10px;
+    cursor: pointer;
 
     .item {
         display: flex;
@@ -21,6 +22,6 @@
 
     .vector {
         margin-right: 20px;
-        width: 10px;
+        width: 15px;
     }
 }

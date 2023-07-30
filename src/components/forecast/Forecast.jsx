@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { convertToCelsius } from "../../convert";
+import React, { useState } from "react"; 
 import {
     Accordion,
     AccordionItem,
@@ -28,6 +27,7 @@ const Forecast = ({ data, hourlyData }) => {
                             className={`button ${isHourlyForecastActive && 'active'}`}
                             onClick={() => setIsHourlyForecastActive(true)}
                         >Hourly Forecast</button>
+                        
                         <button
                             className={`button ${!isHourlyForecastActive && 'active'}`}
                             onClick={() => setIsHourlyForecastActive(false)}
