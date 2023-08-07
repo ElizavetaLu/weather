@@ -8,8 +8,12 @@ const ContainerForecast = ({ data }) => {
     const hourlyWeatherData = []
     const date = new Date()
 
-    data.list.forEach(elem => {
-        if (elem.dt_txt.slice(8, 10) === date.getDate().toString()) {
+    data?.list.forEach(elem => {
+
+        const currentDay = date.getDate().toString()
+        const currentDayCorrected = currentDay.length === 1 ? `0${currentDay}` : currentDay;
+
+        if (elem.dt_txt.slice(8, 10) === currentDayCorrected) {
             return hourlyWeatherData.push(elem)
         }
     })
@@ -296,7 +300,7 @@ const ContainerForecast = ({ data }) => {
     }
 
 
-    return <Forecast data={weekDaysSortedData} hourlyData={hourlyWeatherData}/>
+    return <Forecast data={weekDaysSortedData} hourlyData={hourlyWeatherData} />
 }
 
 export default ContainerForecast
