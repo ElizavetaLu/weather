@@ -11,6 +11,8 @@ import HourWeatherData from "./components/hour-data/HourWeatherData";
 import WeeklyWeatherData from "./components/weekly-data/WeeklyWeatherData";
 import WeeklyDataExpanded from "./components/weekly-data-expanded/WeeklyDataExpanded";
 
+
+
 const Forecast = ({ data, hourlyData }) => {
 
     const [isHourlyForecastActive, setIsHourlyForecastActive] = useState(true)
