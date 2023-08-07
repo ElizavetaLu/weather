@@ -14,7 +14,7 @@ import WeeklyDataExpanded from "./components/weekly-data-expanded/WeeklyDataExpa
 
 
 const Forecast = ({ data, hourlyData }) => {
-
+    
     const [isHourlyForecastActive, setIsHourlyForecastActive] = useState(true)
 
     return (
