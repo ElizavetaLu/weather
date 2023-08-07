@@ -1,26 +1,26 @@
-import './App.scss';
-import CurrentWeather from './components/current-wether/CurrentWeather';
-import Search from './components/search/Search';
-import { WEATHER_API_URL, WEATHER_API_KEY } from './api'
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Axios from 'axios';
+import { WEATHER_API_URL, WEATHER_API_KEY } from './api';
+import CurrentWeather from './components/current-wether/CurrentWeather';
 import ContainerForecast from './components/forecast/ContainerForecast';
+import Search from './components/search/Search';
+import './App.scss';
+
+
+const delay = 15000;
+
 
 const App = () => {
 
-  const [location, setLocation] = useState(null);
-  const [currentWeather, setCurrentWeather] = useState(null)
-  const [forecast, setForecast] = useState(null)
-
-
-  // const [cityImages, setCityImages] = useState(null);
+  const [currentWeather, setCurrentWeather] = useState(null);
+  const [forecast, setForecast] = useState(null);
 
   const getData = async () => {
+
     const res = await Axios.get('https://geolocation-db.com/json/');
 
     Axios.get(`https://ipapi.co/${res.data.IPv4}/json/`).then(response => {
       const data = response.data
-        setLocation([data.city, data.country_name])
       return {
         city: data.city,
         lat: data.latitude,
@@ -44,7 +44,7 @@ const App = () => {
 
             setCurrentWeather({ ...weatherResponse })
             setForecast({ ...forecastResponse })
-            setCurrentImage(allImages)
+            setCurrentImages(allImages)
           })
           .catch(err => console.log(err))
 
@@ -70,45 +70,67 @@ const App = () => {
 
         setCurrentWeather(weatherResponse)
         setForecast(forecastResponse)
-        setCurrentImage(allImages)
+        setCurrentImages(allImages)
       })
       .catch(err => console.log(err))
   }
 
 
 
-
-  const [currentImage, setCurrentImage] = useState(null);
-  const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-
-
-    const id = setInterval(() => {
-      setIndex(prev => {
-        if (prev === currentImage.length - 1) {
-          prev = 0
-        }
-        return prev + 1
-      });
-    }, 15000)
-
-    return () => clearInterval(id);
-
-  }, [currentImage])
-
   useEffect(() => {
     getData()
   }, [])
 
+
+
+  const [currentImages, setCurrentImages] = useState(null);
+  const [index, setIndex] = useState(0);
+  const timeoutRef = useRef(null);
+
+  const resetTimeout = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+  }
+
+  useEffect(() => {
+    resetTimeout();
+    timeoutRef.current = setTimeout(
+      () =>
+        setIndex((prevIndex) =>
+          prevIndex === currentImages?.length - 1 ? 0 : prevIndex + 1),
+
+      delay);
+
+    return () => {
+      resetTimeout();
+    };
+  }, [index]);
+
+
   return (
-    <div className="main" style={currentImage && { backgroundImage: `url("${currentImage[index]}")` }} >
+    <div className="main">
+      <div className="slideshow">
+        <div className="slideshowSlider" style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}>
+          {
+            currentImages?.map((url, index) => {
+              return (
+                <div key={index} className="slide" style={{ backgroundImage: `url(${url})` }}></div>
+              )
+            })
+          }
+        </div>
+      </div>
+
+
+      {currentImages ? null : <div className='isLoading'></div>}
+
       <Search onSearchChange={handleOnSearchChange} />
 
       <div className="main-content">
 
         {currentWeather ? <CurrentWeather data={currentWeather} /> : <div></div>}
-        {forecast && <ContainerForecast data={forecast} location={location} />}
+        {forecast && <ContainerForecast data={forecast} />}
 
       </div>
     </div>
